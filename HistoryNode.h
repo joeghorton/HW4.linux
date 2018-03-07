@@ -17,7 +17,7 @@ private:
     bool returned; //signifies if borrowed or returned
 
 public:
-    HistoryNode* nextRental; //next rental in history
+    HistoryNode* prevRental; //next rental in historyFront
 
     //constructor
     HistoryNode(Item* item, bool returned);
@@ -29,7 +29,7 @@ public:
     // returns true if a return. false if borrow
     bool wasReturned();
 
-    // prints the information about the item in rental history
+    // prints the information about the item in rental historyFront
     // const because Item is stored in pointer and we dont want
     // to mess with data
     void printItem() const;

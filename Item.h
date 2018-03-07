@@ -19,7 +19,8 @@ class Item {
 
 protected:
 
-    //int stock; //number of available copies
+    char mediaType; // media type of the item
+    char category; // category of the item
     string title; //items must have some sort of title
 
 
@@ -28,7 +29,7 @@ public:
     //constructor
     Item();
 
-    Item(string title);
+    Item(string title, char mediaType, char category);
 
     //destructor
     ~Item();
@@ -37,6 +38,10 @@ public:
 
     //returns title
     string getTitle();
+
+    char getCategory();
+
+    char getMediaType();
 
 
     // Items must be compared to one another since they need to be
@@ -52,8 +57,10 @@ Item::Item() {
 
 }
 
-Item::Item(string title) {
+Item::Item(string title, char mediaType, char category) {
     this->title = title;
+    this->mediaType = mediaType;
+    this->category = category;
 }
 
 Item::~Item() {
@@ -68,6 +75,14 @@ void Item::print() {
 
 string Item::getTitle() {
     return this->title;
+}
+
+char Item::getCategory() {
+    return this->category;
+}
+
+char Item::getMediaType() {
+    return this->mediaType;
 }
 
 bool Item::operator ==(const Item& other) const {

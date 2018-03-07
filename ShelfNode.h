@@ -36,7 +36,7 @@ public:
 
     //returns true if successfully returned.
     //may modify later to print if only error
-    bool returnItem();
+    void returnItem();
 
     void print();
 
@@ -68,11 +68,16 @@ void ShelfNode::addStock(int val) {
 }
 
 bool ShelfNode::borrowItem() {
-    return false;
+    if (this->stock > 0) {
+        this->stock--;
+        return true;
+    } else {
+        return false;
+    }
 }
 
-bool ShelfNode::returnItem() {
-    return false;
+void ShelfNode::returnItem() {
+    this->stock++;
 }
 
 void ShelfNode::print() {

@@ -43,6 +43,8 @@ public:
 
     bool addItem(char catID, Item* item, int stock);
 
+    bool rentItem(Item* item);
+
 };
 
 MediaType::MediaType() {
@@ -100,4 +102,14 @@ bool MediaType::addItem(char catID, Item* item, int stock) {
     }
     return false;
 }
+
+bool MediaType::rentItem(Item* item) {
+    for (int i = 0; i < this->categories.size(); i++) {
+        if (this->categories.at(i).getIdentifier() == item->getCategory()) {
+            return this->categories.at(i).rentItem(item);
+        }
+    }
+    return false;
+}
+
 #endif //ASSIGNMENT4_MEDIATYPE_H

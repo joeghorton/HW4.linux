@@ -11,7 +11,7 @@ using namespace std;
 // about each customer. It stores a unique customerdId which is used
 // to locate the Customer in the customer database.
 // It stores the name of the customer as well as the customers
-// history.
+// historyFront.
 
 // This class is to add a valid customer to the database.
 // only valid customers can borrow/return items to the movie store
@@ -22,7 +22,7 @@ private:
     int id; //4 digit customer ID
     string firstName; //first name
     string lastName; //last name
-    HistoryNode* history; //history of rentals.
+    HistoryNode* historyFront; //historyFront of rentals.
 
 public:
 
@@ -34,9 +34,11 @@ public:
     string getFirstName();
     string getLastName();
 
-    // prints out customer history in order of most recently checked out
+    // prints out customer historyFront in order of most recently checked out
     void displayHistory();
     void print();
+
+    void addToHistory(Item* item);
 
 };
 
@@ -44,7 +46,7 @@ Customer::Customer(int id, string firstName, string lastName) {
     this->id = id;
     this->firstName = firstName;
     this->lastName = lastName;
-    this->history = NULL;
+    this->historyFront = NULL;
 }
 
 int Customer::getID() {
@@ -60,15 +62,21 @@ string Customer::getLastName() {
 }
 
 void Customer::displayHistory() {
-    HistoryNode* cur = this->history;
+    HistoryNode* cur = this->historyFront;
     while (cur != NULL) {
         cur->printItem();
-        cur = cur->nextRental;
+        cur = cur->prevRental;
     }
 }
 
 void Customer::print() {
     cout << this->id << " " << this->lastName << " " << this->firstName << endl;
+}
+
+void Customer::addToHistory(Item* item) {
+    HistoryNode* mostRecent = new HistoryNode(item, true);
+    mostRecent->prevRental = this->historyFront;
+    this->historyFront = mostRecent;
 }
 
 #endif //ASSIGNMENT4_CUSTOMER_H

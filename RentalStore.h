@@ -40,7 +40,7 @@ public:
 
     bool addItem(char medID, char catID, Item* item, int stock);
 
-    Item* getItem(Item* item);
+    bool rentItem(Item* item, int custID);
 
 };
 
@@ -124,8 +124,22 @@ bool RentalStore::addItem(char medID, char catID, Item* item, int stock) {
     return false;
 }
 
-Item* RentalStore::getItem(Item* item) {
-    return NULL;
+bool RentalStore::rentItem(Item* item, int custID) {
+    Customer* cust = getCustomer(custID);
+    if (item == NULL || cust == NULL) {
+        return false;
+    }
+    for (int i = 0; i < this->mediaTypes.size(); i++) {
+        if (this->mediaTypes.at(i).getIdentifier() == item->getMediaType()) {
+            if (this->mediaTypes.at(i).rentItem(item)) {
+                cust->addToHistory(item);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    return false;
 }
 
 #endif //ASSIGNMENT4_INVENTORY_H

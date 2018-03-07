@@ -29,7 +29,7 @@ public:
     Movie();
 
     // constructor
-    Movie(string title, string director, int year) : Item(title) {
+    Movie(string title, char category, string director, int year) : Item(title, 'D', category) {
         this->director = director;
         this->year = year;
     };

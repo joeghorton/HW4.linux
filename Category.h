@@ -20,6 +20,7 @@ private:
     // helper methods
     ShelfNode* insertItem(Item* item, int stock, ShelfNode* root);
     void print(ShelfNode* root);
+    bool rentItem(Item* item, ShelfNode* root);
 
 public:
 
@@ -35,11 +36,13 @@ public:
     // traverse overall root
     void print();
 
+    char getIdentifier();
+
     // inserts item into the root.
     // pre: item is same type as other items in this category
     void insertItem(Item* item, int stock);
 
-    char getIdentifier();
+    bool rentItem(Item* item);
 
 };
 
@@ -93,6 +96,23 @@ ShelfNode* Category::insertItem(Item* item, int stock, ShelfNode* root) {
         //delete item;
     }
     return root;
+}
+
+bool Category::rentItem(Item* item) {
+    return false;
+}
+
+// helper method
+bool Category::rentItem(Item* item, ShelfNode* root) {
+    if (root == NULL) {
+        return false;
+    } else if (*root->item == *item) {
+        return root->borrowItem();
+    } else if (*root->item < *item) {
+        return rentItem(item, root->left);
+    } else { // item is greater than root
+        return rentItem(item, root->right);
+    }
 }
 
 #endif //ASSIGNMENT4_CATEGORY_H

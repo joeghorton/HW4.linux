@@ -7,14 +7,13 @@
 
 #include "RentalStore.h"
 #include "MovieFactory.h"
-#include "ActionHandler.h"
+
 
 class MovieStore : public RentalStore {
 
 public:
 
     MovieFactory factory;
-    ActionHandler actionHandler;
 
     // constructors
     MovieStore();
@@ -91,7 +90,7 @@ void MovieStore::readInCommands(ifstream& input) {
     } else {
         int id = -1;
         input >> id;
-        if (type == 'H') { // print customer history
+        if (type == 'H') { // print customer historyFront
             Customer* cust = getCustomer(id);
             if (cust != NULL) {
                 cust->displayHistory();
@@ -134,11 +133,11 @@ bool MovieStore::rentMovieFromInput(char medID, char catID, int custID, ifstream
         input >> actorFirst;
         input >> actorLast;
         Movie* movie = factory.createClassicalMovie("", "", actorFirst, actorLast, month, year);
-        if (!actionHandler.addRental(movie, custID)) {
+        if (!rentItem(movie, custID)) {
             cout << "ERROR: MOVIE NO EXIST" << endl;
         }
     } else if (catID == 'F') {
-
+        // WORKING HERE
     } else if (catID == 'D') {
 
     } else {
