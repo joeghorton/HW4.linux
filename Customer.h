@@ -38,7 +38,7 @@ public:
     void displayHistory();
     void print();
 
-    void addToHistory(Item* item);
+    void addToHistory(Item* item, bool borrowing);
 
 };
 
@@ -73,8 +73,8 @@ void Customer::print() {
     cout << this->id << " " << this->lastName << " " << this->firstName << endl;
 }
 
-void Customer::addToHistory(Item* item) {
-    HistoryNode* mostRecent = new HistoryNode(item, true);
+void Customer::addToHistory(Item* item, bool borrowing) {
+    HistoryNode* mostRecent = new HistoryNode(item, borrowing);
     mostRecent->prevRental = this->historyFront;
     this->historyFront = mostRecent;
 }

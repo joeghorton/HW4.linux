@@ -11,6 +11,8 @@
 #ifndef HW4_MOVIEFACTORY_H
 #define HW4_MOVIEFACTORY_H
 
+using namespace std;
+
 
 class MovieFactory {
 

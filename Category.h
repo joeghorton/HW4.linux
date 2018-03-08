@@ -20,7 +20,9 @@ private:
     // helper methods
     ShelfNode* insertItem(Item* item, int stock, ShelfNode* root);
     void print(ShelfNode* root);
-    bool rentItem(Item* item, ShelfNode* root);
+    ShelfNode* findShelf(Item* item, ShelfNode* root);
+
+    friend class MediaType;
 
 public:
 
@@ -43,6 +45,8 @@ public:
     void insertItem(Item* item, int stock);
 
     bool rentItem(Item* item);
+
+    bool returnItem(Item* item);
 
 };
 
@@ -99,20 +103,38 @@ ShelfNode* Category::insertItem(Item* item, int stock, ShelfNode* root) {
 }
 
 bool Category::rentItem(Item* item) {
-    return false;
+    ShelfNode* inTree = findShelf(item, this->overallRoot);
+    if (inTree == NULL) {
+        return false;
+    } else {
+        return inTree->borrowItem();
+    }
+}
+
+
+
+bool Category::returnItem(Item* item) {
+    ShelfNode* inTree = findShelf(item, this->overallRoot);
+    if (inTree == NULL) {
+        return false;
+    } else {
+        inTree->returnItem();
+        return true;
+    }
 }
 
 // helper method
-bool Category::rentItem(Item* item, ShelfNode* root) {
+ShelfNode* Category::findShelf(Item* item, ShelfNode* root) {
     if (root == NULL) {
-        return false;
+        return NULL;
     } else if (*root->item == *item) {
-        return root->borrowItem();
+        return root;
     } else if (*root->item < *item) {
-        return rentItem(item, root->left);
+        return findShelf(item, root->left);
     } else { // item is greater than root
-        return rentItem(item, root->right);
+        return findShelf(item, root->right);
     }
 }
+
 
 #endif //ASSIGNMENT4_CATEGORY_H

@@ -16,7 +16,11 @@ class MediaType {
 
 private:
     char id; //used to categorize the media type
-    vector<Category> categories; //stores all categories of particular type
+    vector<Category*>* categories; //stores all categories of particular type
+
+    Category* getCategory(char catID);
+
+    friend class RentalStore;
 
 public:
 
@@ -34,16 +38,15 @@ public:
     // returns media type identifier
     char getIdentifier();
 
-    //renames media type id. Not necessary, just added feature
-    void setIdentifier(char mediaID);
-
     bool addCategory(char catID);
 
     bool isValidCategory(char catID);
 
-    bool addItem(char catID, Item* item, int stock);
+    bool addItem(Item* item, int stock);
 
     bool rentItem(Item* item);
+
+    bool returnItem(Item* item);
 
 };
 
@@ -53,6 +56,7 @@ MediaType::MediaType() {
 
 MediaType::MediaType(char mediaID) {
     this->id = mediaID;
+    this->categories = new vector<Category*>();
 }
 
 MediaType::~MediaType() {
@@ -60,8 +64,8 @@ MediaType::~MediaType() {
 }
 
 void MediaType::print() {
-    for (int i = 0; i < this->categories.size(); i++) {
-        this->categories.at(i).print();
+    for (int i = 0; i < this->categories->size(); i++) {
+        this->categories->at(i)->print();
     }
 }
 
@@ -69,47 +73,59 @@ char MediaType::getIdentifier() {
     return this->id;
 }
 
-void MediaType::setIdentifier(char mediaID) {
-    this->id = mediaID;
-}
 
 bool MediaType::addCategory(char catID) {
-    for (int i = 0; i < this->categories.size(); i++) {
-        if (this->categories.at(i).getIdentifier() == catID) {
-            return false;
-        }
+    Category* categ = getCategory(catID);
+    if (categ != NULL) {
+        return false;
+    } else {
+        this->categories->push_back(new Category(catID));
+        return true;
     }
-    this->categories.push_back(Category(catID));
-    return true;
 }
 
 bool MediaType::isValidCategory(char catID) {
-    for (int i = 0; i < this->categories.size(); i++) {
-        if (this->categories.at(i).getIdentifier() == catID) {
-            return true;
-        }
-    }
-    return false;
+    Category* categ = getCategory(catID);
+    return categ != NULL;
 }
 
 
-bool MediaType::addItem(char catID, Item* item, int stock) {
-    for (int i = 0; i < this->categories.size(); i++) {
-        if (this->categories.at(i).getIdentifier() == catID) {
-            this->categories.at(i).insertItem(item, stock);
-            return true;
-        }
+bool MediaType::addItem(Item* item, int stock) {
+    Category* categ = getCategory(item->categoryID());
+    if (categ == NULL) {
+        return false;
+    } else {
+        categ->insertItem(item, stock);
+        return true;
     }
-    return false;
+
 }
 
 bool MediaType::rentItem(Item* item) {
-    for (int i = 0; i < this->categories.size(); i++) {
-        if (this->categories.at(i).getIdentifier() == item->getCategory()) {
-            return this->categories.at(i).rentItem(item);
+    Category* categ = getCategory(item->categoryID());
+    if (categ == NULL) {
+        return false;
+    } else {
+        return categ->rentItem(item);
+    }
+}
+
+bool MediaType::returnItem(Item* item) {
+    Category* categ = getCategory(item->categoryID());
+    if (categ == NULL) {
+        return false;
+    } else {
+        return categ->returnItem(item);
+    }
+}
+
+Category* MediaType::getCategory(char catID) {
+    for (int i = 0; i < this->categories->size(); i++) {
+        if (this->categories->at(i)->getIdentifier() == catID) {
+            return this->categories->at(i);
         }
     }
-    return false;
+    return NULL;
 }
 
 #endif //ASSIGNMENT4_MEDIATYPE_H

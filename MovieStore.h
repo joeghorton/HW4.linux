@@ -8,6 +8,8 @@
 #include "RentalStore.h"
 #include "MovieFactory.h"
 
+using namespace std;
+
 
 class MovieStore : public RentalStore {
 
@@ -61,7 +63,7 @@ void MovieStore::readInInventory(ifstream& input) {
             }
             input >> year;
             if (!addMovie(category, stock, director, title, actorFirst, actorLast, month, year)) {
-                cout << "ERROR MESSAGE 1" << endl;
+                cout << "ERROR MESSAGE: COULDN'T ADD" << endl;
             }
         } else { // invalid category
             string temp; // gets rid of line with invalid type
@@ -117,9 +119,9 @@ void MovieStore::readInCommands(ifstream& input) {
 bool MovieStore::addMovie(char category, int stock, string director, string title, string actorFirst, string actorLast,
                                 int month, int year) {
     if (category == 'C') {
-        return addItem('D', category, factory.createClassicalMovie(director, title, actorFirst, actorLast, month, year), stock);
+        return addItem(factory.createClassicalMovie(director, title, actorFirst, actorLast, month, year), stock);
     } else {
-        return addItem('D', category, factory.createMovie(category, director, title, year), stock);
+        return addItem(factory.createMovie(category, director, title, year), stock);
     }
 }
 

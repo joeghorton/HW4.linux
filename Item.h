@@ -39,9 +39,9 @@ public:
     //returns title
     string getTitle();
 
-    char getCategory();
+    char categoryID();
 
-    char getMediaType();
+    char mediaID();
 
 
     // Items must be compared to one another since they need to be
@@ -77,11 +77,11 @@ string Item::getTitle() {
     return this->title;
 }
 
-char Item::getCategory() {
+char Item::categoryID() {
     return this->category;
 }
 
-char Item::getMediaType() {
+char Item::mediaID() {
     return this->mediaType;
 }
 
