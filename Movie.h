@@ -35,7 +35,7 @@ public:
     };
 
     //destructor
-    ~Movie();
+    virtual ~Movie();
 
     // returns name of director
     string getDirector();

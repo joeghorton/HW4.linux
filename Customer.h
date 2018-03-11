@@ -29,6 +29,9 @@ public:
     // constructor
     Customer(int id, string firstName, string lastName);
 
+    // destructor
+    ~Customer();
+
     // simple features
     int getID();
     string getFirstName();
@@ -49,6 +52,15 @@ Customer::Customer(int id, string firstName, string lastName) {
     this->historyFront = NULL;
 }
 
+Customer::~Customer() {
+    HistoryNode* cur = this->historyFront;
+    while (cur != NULL) {
+        HistoryNode* next = cur->prevRental;
+        delete cur;
+        cur = next;
+    }
+}
+
 int Customer::getID() {
     return this->id;
 }
@@ -63,6 +75,9 @@ string Customer::getLastName() {
 
 void Customer::displayHistory() {
     HistoryNode* cur = this->historyFront;
+    if (cur == NULL) {
+        cout << " | (no rental history)";
+    }
     while (cur != NULL) {
         cout << " | ";
         cur->printItem();
@@ -71,7 +86,7 @@ void Customer::displayHistory() {
 }
 
 void Customer::print() {
-    cout << this->id << " " << this->lastName << ", " << this->firstName << " HISTORY";
+    cout << this->lastName << ", " << this->firstName << " #" << this->id;
     displayHistory();
     cout << endl;
 }

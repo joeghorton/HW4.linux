@@ -45,7 +45,7 @@ public:
 
     bool addCustomer(int id, string firstName, string lastName); // used to add customer to database.
 
-    Customer* getCustomer(int id);
+    Customer* getCustomer(int custID);
 
     bool addItem(Item* item, int stock);
 
@@ -65,7 +65,13 @@ RentalStore::RentalStore() {
 }
 
 RentalStore::~RentalStore() {
-
+    for (int i = 0; i < MAX_CUST; i++) {
+        delete customerList[i];
+    }
+    for (int i = 0; i < this->mediaTypes->size(); i++) {
+        delete this->mediaTypes->at(i);
+    }
+    delete this->mediaTypes;
 }
 
 void RentalStore::print() {
@@ -126,11 +132,11 @@ bool RentalStore::addCustomer(int custID, string firstName, string lastName) {
     }
 }
 
-Customer* RentalStore::getCustomer(int id) {
-    if (this->customerList[id] == NULL) {
-        cout << "ERROR: INVALID CUSTOMER" << endl;
+Customer* RentalStore::getCustomer(int custID) {
+    if (this->customerList[custID] == NULL) {
+        cout << "ERROR: INVALID CUSTOMER: " << custID << endl;
     }
-    return this->customerList[id];
+    return this->customerList[custID];
 }
 
 
@@ -166,11 +172,12 @@ bool RentalStore::returnItem(Item* item, int custID) {
 bool RentalStore::rentalHelper(Item* item, int custID, bool borrowing) {
     Customer* cust = getCustomer(custID);
     if (item == NULL || cust == NULL) {
+        //delete item;
         return false;
     } else {
+        bool success = false;
         MediaType* med = getMediaType(item->mediaID());
         if (med != NULL) {
-            bool success = false;
             if (borrowing) {
                 success = med->rentItem(item);
             } else {
@@ -179,9 +186,8 @@ bool RentalStore::rentalHelper(Item* item, int custID, bool borrowing) {
             if (success) {
                 cust->addToHistory(item, borrowing);
             }
-            return success;
         }
-        return false;
+        return success;
     }
 }
 

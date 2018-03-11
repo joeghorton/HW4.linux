@@ -44,9 +44,9 @@ public:
 
     bool addItem(Item* item, int stock);
 
-    bool rentItem(Item* item);
+    bool rentItem(Item*& item);
 
-    bool returnItem(Item* item);
+    bool returnItem(Item*& item);
 
 };
 
@@ -60,7 +60,10 @@ MediaType::MediaType(char mediaID) {
 }
 
 MediaType::~MediaType() {
-
+    for (int i = 0; i < this->categories->size(); i++) {
+        delete this->categories->at(i);
+    }
+    delete this->categories;
 }
 
 void MediaType::print() {
@@ -101,7 +104,7 @@ bool MediaType::addItem(Item* item, int stock) {
 
 }
 
-bool MediaType::rentItem(Item* item) {
+bool MediaType::rentItem(Item*& item) {
     Category* categ = getCategory(item->categoryID());
     if (categ == NULL) {
         return false;
@@ -110,7 +113,7 @@ bool MediaType::rentItem(Item* item) {
     }
 }
 
-bool MediaType::returnItem(Item* item) {
+bool MediaType::returnItem(Item*& item) {
     Category* categ = getCategory(item->categoryID());
     if (categ == NULL) {
         return false;

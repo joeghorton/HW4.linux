@@ -22,13 +22,8 @@ public:
     ~ComedyMovie();
 
     void print();
+
     // comparison method specific to this class
-   // bool operator ==(const Item& other) const;
-
-   // bool operator <(const Item& other) const;
-
-   // bool operator >(const Item& other) const;
-
     bool operator ==(const Movie& other) const;
     bool operator <(const Movie& other) const;
     bool operator >(const Movie& other) const;
@@ -39,6 +34,10 @@ public:
 
 
 };
+
+ComedyMovie::~ComedyMovie() {
+
+}
 
 void ComedyMovie::print() {
     cout << this->title << ", " << this->year;

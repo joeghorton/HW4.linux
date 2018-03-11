@@ -22,14 +22,11 @@ private:
     ShelfNode* insertItem(Item* item, int stock, ShelfNode* root);
     void print(ShelfNode* root);
     ShelfNode* findShelf(Item* item, ShelfNode* root);
-
-    friend class MediaType;
+    void destructorHelper(ShelfNode* root);
 
 public:
 
     // constructor
-    Category();
-
     Category(char categID);
 
     //destructor.
@@ -45,15 +42,12 @@ public:
     // pre: item is same type as other items in this category
     void insertItem(Item* item, int stock);
 
-    bool rentItem(Item* item);
+    bool rentItem(Item*& item);
 
-    bool returnItem(Item* item);
+    bool returnItem(Item*& item);
 
 };
 
-Category::Category() {
-
-}
 
 Category::Category(char categID) {
     this->id = categID;
@@ -61,7 +55,15 @@ Category::Category(char categID) {
 }
 
 Category::~Category() {
+    destructorHelper(this->overallRoot);
+}
 
+void Category::destructorHelper(ShelfNode* root) {
+    if (root != NULL) {
+        destructorHelper(root->left);
+        destructorHelper(root->right);
+        delete root;
+    }
 }
 
 char Category::getIdentifier() {
@@ -103,18 +105,18 @@ ShelfNode* Category::insertItem(Item* item, int stock, ShelfNode* root) {
     return root;
 }
 
-bool Category::rentItem(Item* item) {
+bool Category::rentItem(Item*& item) {
     ShelfNode* inTree = findShelf(item, this->overallRoot);
     if (inTree == NULL) {
         return false;
     } else {
+        delete item;
+        item = inTree->item;
         return inTree->borrowItem();
     }
 }
 
-
-
-bool Category::returnItem(Item* item) {
+bool Category::returnItem(Item*& item) {
     ShelfNode* inTree = findShelf(item, this->overallRoot);
     if (inTree == NULL) {
         return false;

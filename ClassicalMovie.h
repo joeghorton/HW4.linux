@@ -41,9 +41,6 @@ public:
     // return month created
     int getMonth();
 
-    // used if the same movie is read in from file multiple times
-    // adds copies to sum
-
     // comparison methods
     bool operator ==(const Movie& other) const;
     bool operator <(const Movie& other) const;

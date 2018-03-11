@@ -32,7 +32,7 @@ public:
     Item(string title, char mediaType, char category);
 
     //destructor
-    ~Item();
+    virtual ~Item();
 
     virtual void print();
 
