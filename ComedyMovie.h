@@ -19,7 +19,7 @@ public:
     ComedyMovie(string title, string director, int year) : Movie(title, 'F', director, year) {};
 
     //destructor
-    ~ComedyMovie();
+   // ~ComedyMovie();
 
     void print();
 
@@ -35,9 +35,11 @@ public:
 
 };
 
+/*
 ComedyMovie::~ComedyMovie() {
 
 }
+ */
 
 void ComedyMovie::print() {
     cout << this->title << ", " << this->year;

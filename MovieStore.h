@@ -97,10 +97,12 @@ void MovieStore::readInCommands(ifstream& input) {
             int custID = -1;
             input >> custID;
             if (command == 'H') { // print customer historyFront
+
                 Customer* cust = getCustomer(custID);
                 if (cust != NULL) {
                     cust->print();
                 }
+
             } else {
                 char mediaType = ' ';
                 char category = ' ';
@@ -113,11 +115,13 @@ void MovieStore::readInCommands(ifstream& input) {
                         cout << "borrow SUCCESS" << endl;
                     }
                 } else if (command == 'R') {
+
                     if (!rentMovieFromInput(category, custID, input, false)) {
                         cout << "return FAIL: " << category << " " << custID << endl;
                     } else {
                         cout << "return SUCCESS" << endl;
                     }
+
                 }
             }
         } else {
@@ -154,8 +158,7 @@ bool MovieStore::rentMovieFromInput(char catID, int custID, ifstream& input, boo
         input >> year;
         input >> actorFirst;
         input >> actorLast;
-        //ClassicalMovie* movie = (factory.createClassicalMovie("", "", actorFirst, actorLast, month, year));
-        movie = (factory.createClassicalMovie("", "", actorFirst, actorLast, month, year));
+        movie = factory.createClassicalMovie("", "", actorFirst, actorLast, month, year);
 
     } else if (catID == 'F') {
         string title = "";
@@ -175,7 +178,7 @@ bool MovieStore::rentMovieFromInput(char catID, int custID, ifstream& input, boo
         return false;
     }
     bool result = rentalAction(movie, custID, borrowing);
-   // delete movie;
+    delete movie;
     return result;
 }
 

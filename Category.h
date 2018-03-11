@@ -100,7 +100,7 @@ ShelfNode* Category::insertItem(Item* item, int stock, ShelfNode* root) {
         root->right = insertItem(item, stock, root->right);
     } else { // items are equal, increase the stock
         root->addStock(stock);
-        //delete item;
+        delete item;
     }
     return root;
 }
@@ -110,7 +110,6 @@ bool Category::rentItem(Item*& item) {
     if (inTree == NULL) {
         return false;
     } else {
-        delete item;
         item = inTree->item;
         return inTree->borrowItem();
     }
@@ -121,6 +120,7 @@ bool Category::returnItem(Item*& item) {
     if (inTree == NULL) {
         return false;
     } else {
+        item = inTree->item;
         inTree->returnItem();
         return true;
     }

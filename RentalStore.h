@@ -146,7 +146,8 @@ bool RentalStore::addItem(Item* item, int stock) {
     } else {
         MediaType* med = getMediaType(item->mediaID());
         if (med != NULL) {
-            return med->addItem(item, stock);
+            bool result = med->addItem(item, stock);
+            return result;
         }
     }
     return false;
@@ -172,7 +173,6 @@ bool RentalStore::returnItem(Item* item, int custID) {
 bool RentalStore::rentalHelper(Item* item, int custID, bool borrowing) {
     Customer* cust = getCustomer(custID);
     if (item == NULL || cust == NULL) {
-        //delete item;
         return false;
     } else {
         bool success = false;

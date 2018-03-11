@@ -52,7 +52,7 @@ ShelfNode::ShelfNode(Item* item, int stock) {
 }
 
 ShelfNode::~ShelfNode() {
-
+    delete this->item;
 }
 
 int ShelfNode::getStock() {
