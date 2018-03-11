@@ -43,6 +43,7 @@ public:
     // adds copies to sum
 
     // comparison methods
+    bool operator ==(const ClassicalMovie& other) const;
     bool operator <(const ClassicalMovie& other) const;
     bool operator >(const ClassicalMovie& other) const;
 
@@ -54,6 +55,11 @@ ClassicalMovie::~ClassicalMovie() {
 
 int ClassicalMovie::getMonth() {
     return this->month;
+}
+
+bool ClassicalMovie::operator ==(const ClassicalMovie& other) const {
+    return (this->actorFirst == other.actorFirst && this->actorLast == other.actorLast &&
+                    this->year == other.year && this->month == other.month);
 }
 
 bool ClassicalMovie::operator <(const ClassicalMovie& other) const {

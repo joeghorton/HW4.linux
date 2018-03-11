@@ -28,8 +28,8 @@ public:
 
 };
 
-bool ComedyMovie::operator ==(const ComedyMovie &other) const {
-    return false;
+bool ComedyMovie::operator ==(const ComedyMovie& other) const {
+    return (this->title == other.title && this->year == other.year);
 }
 
 bool ComedyMovie::operator <(const ComedyMovie& other) const {

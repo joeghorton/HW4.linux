@@ -22,12 +22,17 @@ public:
     ~DramaMovie();
 
     // comparison method specific to this type of movie
+    bool operator ==(const DramaMovie& other) const;
     bool operator <(const DramaMovie& other) const;
     bool operator >(const DramaMovie& other) const;
 };
 
 DramaMovie::~DramaMovie() {
 
+}
+
+bool DramaMovie::operator ==(const DramaMovie& other) const {
+    return (this->director == other.director && this->title == other.title);
 }
 
 bool DramaMovie::operator <(const DramaMovie& other) const {
@@ -45,6 +50,8 @@ bool DramaMovie::operator >(const DramaMovie& other) const {
         return this->director > other.director;
     }
 }
+
+
 
 
 #endif //ASSIGNMENT4_DRAMAMOVIE_H

@@ -44,7 +44,7 @@ public:
 
     bool addItem(Item* item, int stock);
 
-    bool rentItem(Item* item, int custID);
+    bool rentItem(Item* item, int custID, bool borrowing);
 
     bool returnItem(Item* item, int custID);
 
@@ -130,8 +130,8 @@ bool RentalStore::addItem(Item* item, int stock) {
     return false;
 }
 
-bool RentalStore::rentItem(Item* item, int custID) {
-    return rentalHelper(item, custID, true);
+bool RentalStore::rentItem(Item* item, int custID, bool borrowing) {
+    return rentalHelper(item, custID, borrowing);
 }
 
 bool RentalStore::returnItem(Item* item, int custID) {
