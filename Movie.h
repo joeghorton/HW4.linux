@@ -48,8 +48,11 @@ public:
     // default compare to for movie;
     // compare title then release year for generic movie.
     // Override when desired.
+    virtual bool operator ==(const Item& other) const;
     virtual bool operator ==(const Movie& other) const;
+    virtual bool operator <(const Item& other) const;
     virtual bool operator <(const Movie& other) const;
+    virtual bool operator >(const Item& other) const;
     virtual bool operator >(const Movie& other) const;
 
 };
@@ -74,10 +77,20 @@ void Movie::print() {
     cout << this->title << " " << "(" << this->year << ")";
 }
 
+bool Movie::operator ==(const Item& other) const {
+    return const_cast<Item&>(other) == *this;
+
+}
+
 bool Movie::operator ==(const Movie& other) const {
-    return (this->year == other.year &&
-            this->director == other.director &&
-            this->title == other.title);
+    return (this->year == const_cast<Movie&>(other).year &&
+            this->director == const_cast<Movie&>(other).director &&
+            this->title == const_cast<Movie&>(other).title);
+}
+
+bool Movie::operator <(const Item& other) const {
+    return const_cast<Item&>(other) < *this;
+
 }
 
 bool Movie::operator <(const Movie& other) const {
@@ -88,6 +101,11 @@ bool Movie::operator <(const Movie& other) const {
     }
 }
 
+bool Movie::operator >(const Item& other) const {
+    return const_cast<Item&>(other) > *this;
+
+}
+
 bool Movie::operator >(const Movie& other) const {
     if (this->title > other.title) {
         return true;
@@ -95,6 +113,7 @@ bool Movie::operator >(const Movie& other) const {
         return this->year > other.year;
     }
 }
+
 
 
 #endif //ASSIGNMENT4_MOVIE_H

@@ -137,7 +137,6 @@ bool MovieStore::addMovie(char category, int stock, string director, string titl
 
 
 bool MovieStore::rentMovieFromInput(char medID, char catID, int custID, ifstream& input, bool borrowing) {
-    Movie* movie = NULL;
     if (catID == 'C') {
         int month = 0, year = 0;
         string actorFirst = "", actorLast = "";
@@ -145,26 +144,32 @@ bool MovieStore::rentMovieFromInput(char medID, char catID, int custID, ifstream
         input >> year;
         input >> actorFirst;
         input >> actorLast;
-        movie = factory.createClassicalMovie("", "", actorFirst, actorLast, month, year);
-
+        ClassicalMovie* movie = (ClassicalMovie*) (factory.createClassicalMovie("", "", actorFirst, actorLast, month, year));
+        if (!rentItem((ClassicalMovie*) movie, custID, borrowing)) {
+            cout << "ERROR: MOVIE NO EXIST" << endl;
+        }
     } else if (catID == 'F') {
         string title = "";
         int year = -1;
         getline(input, title, ',');
         input >> year;
-        movie = factory.createMovie(catID, "", title, year);
+        ComedyMovie* movie = (ComedyMovie*) factory.createMovie(catID, "", title, year);
+        if (!rentItem((ComedyMovie*) movie, custID, borrowing)) {
+            cout << "ERROR: COMEDY MOVIE NO EXIST" << endl;
+        }
     } else if (catID == 'D') {
         string director = "";
         string title = "";
         getline(input, director, ',');
         getline(input, title, ',');
-        movie = factory.createMovie(catID, director, title, -1);
+        DramaMovie* movie = (DramaMovie*) factory.createMovie(catID, director, title, -1);
+        if (!rentItem((DramaMovie*) movie, custID, borrowing)) {
+            cout << "ERROR: MOVIE NO EXIST" << endl;
+        }
     } else {
-        // cout << "ERROR: INVALID CATEGORY RENTAL" << endl; maybe put back?
+         cout << "ERROR: INVALID CATEGORY RENTAL" << endl;
     }
-    if (!rentItem(movie, custID, borrowing)) {
-        cout << "ERROR: MOVIE NO EXIST" << endl;
-    }
+
 }
 
 #endif //ASSIGNMENT4_MOVIESTORE_H

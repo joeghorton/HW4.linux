@@ -3,6 +3,7 @@
 #define ASSIGNMENT4_CATEGORY_H
 #include "MediaType.h"
 #include "ShelfNode.h"
+#include "Movie.h"
 
 // The category class is used as the second part of a
 // 2 part organizer. This class is used to only store
