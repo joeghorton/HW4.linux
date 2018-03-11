@@ -146,14 +146,19 @@ bool RentalStore::rentalHelper(Item* item, int custID, bool borrowing) {
     } else {
         MediaType* med = getMediaType(item->mediaID());
         if (med != NULL) {
+            bool success = false;
             Category* categ = med->getCategory(item->mediaID());
             if (categ != NULL) {
                 if (borrowing) {
-                    return categ->rentItem(item);
+                    success = categ->rentItem(item);
                 } else {
-                    return categ->returnItem(item);
+                    success = categ->returnItem(item);
+                }
+                if (success) {
+                    cust->addToHistory(item, borrowing);
                 }
             }
+            return success;
         }
         return false;
     }

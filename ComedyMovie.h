@@ -22,9 +22,9 @@ public:
     ~ComedyMovie();
 
     // comparison method specific to this class
-    bool operator ==(const ComedyMovie& other) const;
-    bool operator <(const ComedyMovie& other) const;
-    bool operator >(const ComedyMovie& other) const;
+    virtual bool operator ==(const ComedyMovie& other) const;
+    virtual bool operator <(const ComedyMovie& other) const;
+    virtual bool operator >(const ComedyMovie& other) const;
 
 };
 
