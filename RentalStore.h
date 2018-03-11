@@ -146,8 +146,7 @@ bool RentalStore::addItem(Item* item, int stock) {
     } else {
         MediaType* med = getMediaType(item->mediaID());
         if (med != NULL) {
-            bool result = med->addItem(item, stock);
-            return result;
+            return med->addItem(item, stock);
         }
     }
     return false;
