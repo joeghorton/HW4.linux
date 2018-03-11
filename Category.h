@@ -27,7 +27,7 @@ private:
 public:
 
     // constructor
-    Category(char categID);
+    explicit Category(char categID);
 
     //destructor.
     ~Category();
@@ -51,7 +51,7 @@ public:
 
 Category::Category(char categID) {
     this->id = categID;
-    this->overallRoot = NULL;
+    this->overallRoot = nullptr;
 }
 
 Category::~Category() {
@@ -59,7 +59,7 @@ Category::~Category() {
 }
 
 void Category::destructorHelper(ShelfNode* root) {
-    if (root != NULL) {
+    if (root != nullptr) {
         destructorHelper(root->left);
         destructorHelper(root->right);
         delete root;
@@ -76,7 +76,7 @@ void Category::print() {
 }
 
 void Category::print(ShelfNode* root) {
-    if (root != NULL) {
+    if (root != nullptr) {
         print(root->left);
         root->print();
         print(root->right);
@@ -84,7 +84,7 @@ void Category::print(ShelfNode* root) {
 }
 
 void Category::insertItem(Item* item, int stock) {
-    if (item != NULL) {
+    if (item != nullptr) {
         this->overallRoot = insertItem(item, stock, this->overallRoot);
     } else {
         cout << "ERROR: NULL ITEM" << endl;
@@ -92,7 +92,7 @@ void Category::insertItem(Item* item, int stock) {
 }
 
 ShelfNode* Category::insertItem(Item* item, int stock, ShelfNode* root) {
-    if (root == NULL) {
+    if (root == nullptr) {
         root = new ShelfNode(item, stock);
     } else if (*item < *root->item) {
         root->left = insertItem(item, stock, root->left);
@@ -107,7 +107,7 @@ ShelfNode* Category::insertItem(Item* item, int stock, ShelfNode* root) {
 
 bool Category::rentItem(Item*& item) {
     ShelfNode* inTree = findShelf(item, this->overallRoot);
-    if (inTree == NULL) {
+    if (inTree == nullptr) {
         return false;
     } else {
         item = inTree->item;
@@ -117,7 +117,7 @@ bool Category::rentItem(Item*& item) {
 
 bool Category::returnItem(Item*& item) {
     ShelfNode* inTree = findShelf(item, this->overallRoot);
-    if (inTree == NULL) {
+    if (inTree == nullptr) {
         return false;
     } else {
         item = inTree->item;
@@ -128,8 +128,8 @@ bool Category::returnItem(Item*& item) {
 
 // helper method
 ShelfNode* Category::findShelf(Item* item, ShelfNode* root) {
-    if (root == NULL) {
-        return NULL;
+    if (root == nullptr) {
+        return nullptr;
     } else if (*item == *root->item) {
         return root;
     } else if (*item > *root->item) {

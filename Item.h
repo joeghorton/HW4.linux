@@ -27,8 +27,6 @@ protected:
 public:
 
     //constructor
-    Item();
-
     Item(string title, char mediaType, char category);
 
     //destructor
@@ -53,19 +51,13 @@ public:
 
 };
 
-Item::Item() {
-
-}
-
 Item::Item(string title, char mediaType, char category) {
     this->title = title;
     this->mediaType = mediaType;
     this->category = category;
 }
 
-Item::~Item() {
-
-}
+Item::~Item() = default;
 
 
 void Item::print() {

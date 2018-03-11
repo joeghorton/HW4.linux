@@ -41,9 +41,7 @@ MovieStore::MovieStore() {
     addCategory('D', 'C');
 }
 
-MovieStore::~MovieStore() {
-
-}
+MovieStore::~MovieStore() = default;
 
 void MovieStore::readInInventory(ifstream& input) {
     while (!input.eof()) {
@@ -99,7 +97,7 @@ void MovieStore::readInCommands(ifstream& input) {
             if (command == 'H') { // print customer historyFront
 
                 Customer* cust = getCustomer(custID);
-                if (cust != NULL) {
+                if (cust != nullptr) {
                     cust->print();
                 }
 
@@ -150,7 +148,7 @@ bool MovieStore::addMovie(char category, int stock, string director, string titl
 
 
 bool MovieStore::rentMovieFromInput(char catID, int custID, ifstream& input, bool borrowing) {
-    Movie* movie = NULL;
+    Movie* movie = nullptr;
     if (catID == 'C') {
         int month = 0, year = 0;
         string actorFirst = "", actorLast = "";

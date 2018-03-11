@@ -39,11 +39,10 @@ public:
 HistoryNode::HistoryNode(Item* item, bool returned) {
     this->item = item;
     this->borrowed = returned;
+    this->prevRental = nullptr;
 }
 
-HistoryNode::~HistoryNode() {
-
-}
+HistoryNode::~HistoryNode() = default;
 
 bool HistoryNode::wasReturned() {
     return this->borrowed;

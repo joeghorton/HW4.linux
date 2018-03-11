@@ -33,9 +33,7 @@ public:
     bool operator >(const DramaMovie& other) const;
 };
 
-DramaMovie::~DramaMovie() {
-
-}
+DramaMovie::~DramaMovie() = default;
 
 void DramaMovie::print() {
     cout << this->director << ", " << this->title;

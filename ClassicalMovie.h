@@ -52,9 +52,7 @@ public:
 
 };
 
-ClassicalMovie::~ClassicalMovie() {
-
-}
+ClassicalMovie::~ClassicalMovie() = default;
 
 void ClassicalMovie::print() {
     cout << this->month << " " << this->year << ", " << this->actorFirst << " " << this->actorLast;

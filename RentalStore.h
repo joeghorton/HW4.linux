@@ -17,7 +17,7 @@ class RentalStore {
 private:
 
     //stores all customer info
-    Customer* customerList[MAX_CUST];
+    Customer* customerList[MAX_CUST]{};
 
     // stores first level of inventory categorization
     vector<MediaType*>* mediaTypes;
@@ -60,7 +60,7 @@ public:
 RentalStore::RentalStore() {
     this->mediaTypes = new vector<MediaType*>();
     for (int i = 0; i < MAX_CUST; i++) {
-        customerList[i] = NULL;
+        customerList[i] = nullptr;
     }
 }
 
@@ -89,7 +89,7 @@ void RentalStore::printInventory() {
 
 void RentalStore::printCustomers() {
     for (int i = 0; i < MAX_CUST; i++) {
-        if (this->customerList[i] != NULL) {
+        if (this->customerList[i] != nullptr) {
             this->customerList[i]->print();
         }
     }
@@ -97,7 +97,7 @@ void RentalStore::printCustomers() {
 
 bool RentalStore::addMediaType(char medID) {
     MediaType* med = getMediaType(medID);
-    if (med == NULL) {
+    if (med == nullptr) {
         this->mediaTypes->push_back(new MediaType(medID));
         return true;
     } else { // media type already exists
@@ -107,24 +107,16 @@ bool RentalStore::addMediaType(char medID) {
 
 bool RentalStore::addCategory(char medID, char catID) {
     MediaType* med = getMediaType(medID);
-    if (med == NULL) {
-        return false;
-    } else {
-        return med->addCategory(catID);
-    }
+    return med != nullptr && med->addCategory(catID);
 }
 
 bool RentalStore::isValidCategory(char medID, char catID) {
     MediaType* med = getMediaType(medID);
-    if (med == NULL) {
-        return false;
-    } else {
-        return med->isValidCategory(catID);
-    }
+    return med != nullptr && med->isValidCategory(catID);
 }
 
 bool RentalStore::addCustomer(int custID, string firstName, string lastName) {
-    if (this->customerList[custID] == NULL) {
+    if (this->customerList[custID] == nullptr) {
         this->customerList[custID] = new Customer(custID, firstName, lastName);
         return true;
     } else {
@@ -133,7 +125,7 @@ bool RentalStore::addCustomer(int custID, string firstName, string lastName) {
 }
 
 Customer* RentalStore::getCustomer(int custID) {
-    if (this->customerList[custID] == NULL) {
+    if (this->customerList[custID] == nullptr) {
         cout << "ERROR: INVALID CUSTOMER: " << custID << endl;
     }
     return this->customerList[custID];
@@ -141,11 +133,11 @@ Customer* RentalStore::getCustomer(int custID) {
 
 
 bool RentalStore::addItem(Item* item, int stock) {
-    if (item == NULL) {
+    if (item == nullptr) {
         return false;
     } else {
         MediaType* med = getMediaType(item->mediaID());
-        if (med != NULL) {
+        if (med != nullptr) {
             return med->addItem(item, stock);
         }
     }
@@ -171,12 +163,12 @@ bool RentalStore::returnItem(Item* item, int custID) {
 
 bool RentalStore::rentalHelper(Item* item, int custID, bool borrowing) {
     Customer* cust = getCustomer(custID);
-    if (item == NULL || cust == NULL) {
+    if (item == nullptr || cust == nullptr) {
         return false;
     } else {
         bool success = false;
         MediaType* med = getMediaType(item->mediaID());
-        if (med != NULL) {
+        if (med != nullptr) {
             if (borrowing) {
                 success = med->rentItem(item);
             } else {
@@ -196,7 +188,7 @@ MediaType* RentalStore::getMediaType(char medID) {
             return this->mediaTypes->at(i);
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 #endif //ASSIGNMENT4_INVENTORY_H

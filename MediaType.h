@@ -25,7 +25,6 @@ private:
 public:
 
     //empty constructor
-    MediaType(); // Maybe we don't need this?
 
     MediaType(char mediaID);
 
@@ -50,9 +49,6 @@ public:
 
 };
 
-MediaType::MediaType() {
-
-}
 
 MediaType::MediaType(char mediaID) {
     this->id = mediaID;
@@ -79,7 +75,7 @@ char MediaType::getIdentifier() {
 
 bool MediaType::addCategory(char catID) {
     Category* categ = getCategory(catID);
-    if (categ != NULL) {
+    if (categ != nullptr) {
         return false;
     } else {
         this->categories->push_back(new Category(catID));
@@ -89,13 +85,13 @@ bool MediaType::addCategory(char catID) {
 
 bool MediaType::isValidCategory(char catID) {
     Category* categ = getCategory(catID);
-    return categ != NULL;
+    return categ != nullptr;
 }
 
 
 bool MediaType::addItem(Item* item, int stock) {
     Category* categ = getCategory(item->categoryID());
-    if (categ == NULL) {
+    if (categ == nullptr) {
         return false;
     } else {
         categ->insertItem(item, stock);
@@ -106,20 +102,12 @@ bool MediaType::addItem(Item* item, int stock) {
 
 bool MediaType::rentItem(Item*& item) {
     Category* categ = getCategory(item->categoryID());
-    if (categ == NULL) {
-        return false;
-    } else {
-        return categ->rentItem(item);
-    }
+    return categ != nullptr && categ->rentItem(item);
 }
 
 bool MediaType::returnItem(Item*& item) {
     Category* categ = getCategory(item->categoryID());
-    if (categ == NULL) {
-        return false;
-    } else {
-        return categ->returnItem(item);
-    }
+    return categ != nullptr && categ->returnItem(item);
 }
 
 Category* MediaType::getCategory(char catID) {
@@ -128,7 +116,7 @@ Category* MediaType::getCategory(char catID) {
             return this->categories->at(i);
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 #endif //ASSIGNMENT4_MEDIATYPE_H

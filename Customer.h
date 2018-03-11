@@ -49,12 +49,12 @@ Customer::Customer(int id, string firstName, string lastName) {
     this->id = id;
     this->firstName = firstName;
     this->lastName = lastName;
-    this->historyFront = NULL;
+    this->historyFront = nullptr;
 }
 
 Customer::~Customer() {
     HistoryNode* cur = this->historyFront;
-    while (cur != NULL) {
+    while (cur != nullptr) {
         HistoryNode* next = cur->prevRental;
         delete cur;
         cur = next;
@@ -75,10 +75,10 @@ string Customer::getLastName() {
 
 void Customer::displayHistory() {
     HistoryNode* cur = this->historyFront;
-    if (cur == NULL) {
+    if (cur == nullptr) {
         cout << " | (no rental history)";
     }
-    while (cur != NULL) {
+    while (cur != nullptr) {
         cout << " | ";
         cur->printItem();
         cur = cur->prevRental;

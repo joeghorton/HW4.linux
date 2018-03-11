@@ -18,7 +18,7 @@ public:
     ShelfNode* right; // points to TreeNodes that are 'greater than' this one
 
     // constructor
-    ShelfNode() : ShelfNode(NULL, 0) {};
+    ShelfNode() : ShelfNode(nullptr, 0) {};
 
     ShelfNode(Item* item, int stock);
 
@@ -47,8 +47,8 @@ public:
 ShelfNode::ShelfNode(Item* item, int stock) {
     this->item = item;
     this->stock = stock;
-    this->left = NULL;
-    this->right = NULL;
+    this->left = nullptr;
+    this->right = nullptr;
 }
 
 ShelfNode::~ShelfNode() {

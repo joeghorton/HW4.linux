@@ -26,9 +26,6 @@ protected:
 public:
 
     // constructor
-    Movie();
-
-    // constructor
     Movie(string title, char category, string director, int year) : Item(title, 'D', category) {
         this->director = director;
         this->year = year;
@@ -60,13 +57,7 @@ public:
 
 };
 
-Movie::Movie() {
-
-}
-
-Movie::~Movie() {
-
-}
+Movie::~Movie() = default;
 
 string Movie::getDirector() {
     return this->director;
@@ -87,19 +78,11 @@ bool Movie::operator ==(const Movie& other) const {
 }
 
 bool Movie::operator <(const Movie& other) const {
-    if (this->title < other.title) {
-        return true;
-    } else {
-        return this->year < other.year;
-    }
+    return this->title < other.title || this->year < other.year;
 }
 
 bool Movie::operator >(const Movie& other) const {
-    if (this->title > other.title) {
-        return true;
-    } else {
-        return this->year > other.year;
-    }
+    return this->title > other.title || this->year > other.year;
 }
 
 bool Movie::operator ==(const Item& other) const {
