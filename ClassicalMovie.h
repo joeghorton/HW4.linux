@@ -43,6 +43,10 @@ public:
     // adds copies to sum
 
     // comparison methods
+    bool operator ==(const Movie& other) const;
+    bool operator <(const Movie& other) const;
+    bool operator >(const Movie& other) const;
+
     bool operator ==(const ClassicalMovie& other) const;
     bool operator <(const ClassicalMovie& other) const;
     bool operator >(const ClassicalMovie& other) const;
@@ -92,6 +96,18 @@ bool ClassicalMovie::operator >(const ClassicalMovie& other) const {
     } else { // primary sort
         return this->year > other.year;
     }
+}
+
+bool ClassicalMovie::operator ==(const Movie& other) const {
+    return *this == (ClassicalMovie&) other;
+}
+
+bool ClassicalMovie::operator <(const Movie& other) const {
+    return *this < (ClassicalMovie&) other;
+}
+
+bool ClassicalMovie::operator >(const Movie& other) const {
+    return *this > (ClassicalMovie&) other;
 }
 
 #endif //ASSIGNMENT4_CLASSICALMOVIE_H

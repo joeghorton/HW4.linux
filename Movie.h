@@ -4,7 +4,7 @@
 
 #ifndef ASSIGNMENT4_MOVIE_H
 #define ASSIGNMENT4_MOVIE_H
-#include "Item.h"
+//#include "Item.h"
 #include <string>
 
 // The movie class is used to store a general movie description.
@@ -49,11 +49,14 @@ public:
     // compare title then release year for generic movie.
     // Override when desired.
     virtual bool operator ==(const Item& other) const;
-    virtual bool operator ==(const Movie& other) const;
     virtual bool operator <(const Item& other) const;
-    virtual bool operator <(const Movie& other) const;
     virtual bool operator >(const Item& other) const;
+
+    virtual bool operator ==(const Movie& other) const;
+    virtual bool operator <(const Movie& other) const;
     virtual bool operator >(const Movie& other) const;
+
+
 
 };
 
@@ -77,20 +80,10 @@ void Movie::print() {
     cout << this->title << " " << "(" << this->year << ")";
 }
 
-bool Movie::operator ==(const Item& other) const {
-    return const_cast<Item&>(other) == *this;
-
-}
-
 bool Movie::operator ==(const Movie& other) const {
     return (this->year == const_cast<Movie&>(other).year &&
             this->director == const_cast<Movie&>(other).director &&
             this->title == const_cast<Movie&>(other).title);
-}
-
-bool Movie::operator <(const Item& other) const {
-    return const_cast<Item&>(other) < *this;
-
 }
 
 bool Movie::operator <(const Movie& other) const {
@@ -101,17 +94,27 @@ bool Movie::operator <(const Movie& other) const {
     }
 }
 
-bool Movie::operator >(const Item& other) const {
-    return const_cast<Item&>(other) > *this;
-
-}
-
 bool Movie::operator >(const Movie& other) const {
     if (this->title > other.title) {
         return true;
     } else {
         return this->year > other.year;
     }
+}
+
+bool Movie::operator ==(const Item& other) const {
+    return *this == (Movie&) const_cast<Item&>(other);
+
+}
+
+bool Movie::operator <(const Item& other) const {
+    return *this < (Movie&) const_cast<Item&>(other);
+
+}
+
+bool Movie::operator >(const Item& other) const {
+    return *this > (Movie&) const_cast<Item&>(other);
+
 }
 
 

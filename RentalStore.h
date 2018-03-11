@@ -3,6 +3,7 @@
 #define ASSIGNMENT4_INVENTORY_H
 #include "Customer.h"
 #include "MediaType.h"
+#include "Item.h"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -31,6 +32,9 @@ public:
 
 
     void print();
+
+    void printInventory();
+    void printCustomers();
 
     bool addMediaType(char medID); //used to add media type so then data valid
 
@@ -62,10 +66,19 @@ RentalStore::~RentalStore() {
 }
 
 void RentalStore::print() {
+    cout << "Inventory" << endl;
+    printInventory();
+    cout << "Customers:" << endl;
+    printCustomers();
+}
+
+void RentalStore::printInventory() {
     for (int i = 0; i < this->mediaTypes->size(); i++) {
         this->mediaTypes->at(i)->print();
     }
-    cout << "Customers:" << endl;
+}
+
+void RentalStore::printCustomers() {
     for (int i = 0; i < MAX_CUST; i++) {
         if (this->customerList[i] != NULL) {
             this->customerList[i]->print();
@@ -147,16 +160,13 @@ bool RentalStore::rentalHelper(Item* item, int custID, bool borrowing) {
         MediaType* med = getMediaType(item->mediaID());
         if (med != NULL) {
             bool success = false;
-            Category* categ = med->getCategory(item->mediaID());
-            if (categ != NULL) {
-                if (borrowing) {
-                    success = categ->rentItem(item);
-                } else {
-                    success = categ->returnItem(item);
-                }
-                if (success) {
-                    cust->addToHistory(item, borrowing);
-                }
+            if (borrowing) {
+                success = med->rentItem(item);
+            } else {
+                success = med->returnItem(item);
+            }
+            if (success) {
+                cust->addToHistory(item, borrowing);
             }
             return success;
         }

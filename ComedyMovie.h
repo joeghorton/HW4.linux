@@ -5,7 +5,7 @@
 #ifndef ASSIGNMENT4_COMEDYMOVIE_H
 #define ASSIGNMENT4_COMEDYMOVIE_H
 
-#include "Movie.h"
+
 
 // This class is used for all Comedy Movies.
 // It contains exactly the same information provided in the
@@ -22,17 +22,19 @@ public:
     ~ComedyMovie();
 
     // comparison method specific to this class
-    virtual bool operator ==(const Item& other) const;
-    virtual bool operator <(const Item& other) const;
-    virtual bool operator >(const Item& other) const;
+   // bool operator ==(const Item& other) const;
 
-    virtual bool operator ==(const Movie& other) const;
-    virtual bool operator <(const Movie& other) const;
-    virtual bool operator >(const Movie& other) const;
+   // bool operator <(const Item& other) const;
 
-    virtual bool operator ==(const ComedyMovie& other) const;
-    virtual bool operator <(const ComedyMovie& other) const;
-    virtual bool operator >(const ComedyMovie& other) const;
+   // bool operator >(const Item& other) const;
+
+    bool operator ==(const Movie& other) const;
+    bool operator <(const Movie& other) const;
+    bool operator >(const Movie& other) const;
+
+    bool operator ==(const ComedyMovie& other) const;
+    bool operator <(const ComedyMovie& other) const;
+    bool operator >(const ComedyMovie& other) const;
 
 
 };
@@ -58,28 +60,17 @@ bool ComedyMovie::operator >(const ComedyMovie& other) const {
     }
 }
 
-bool ComedyMovie::operator ==(const Item& other) const {
-    return const_cast<Item&>(other) == *this;
-}
-
-bool ComedyMovie::operator <(const Item& other) const {
-    return const_cast<Item&>(other) < *this;
-}
-
-bool ComedyMovie::operator >(const Item& other) const {
-    return const_cast<Item&>(other) > *this;
-}
 
 bool ComedyMovie::operator ==(const Movie& other) const {
-    return false;
+    return *this == (ComedyMovie&) const_cast<Movie&>(other);
 }
 
 bool ComedyMovie::operator <(const Movie& other) const {
-    return false;
+    return *this < (ComedyMovie&) const_cast<Movie&>(other);
 }
 
 bool ComedyMovie::operator >(const Movie& other) const {
-    return false;
+    return *this > (ComedyMovie&) const_cast<Movie&>(other);
 }
 
 #endif //ASSIGNMENT4_COMEDYMOVIE_H

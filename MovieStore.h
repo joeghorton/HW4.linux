@@ -109,13 +109,13 @@ void MovieStore::readInCommands(ifstream& input) {
                     if (!rentMovieFromInput(mediaType, category, id, input, true)) {
                         cout << "ERROR: CAN'T BORROW" << endl;
                     } else {
-                        cout << "success rent" << endl;
+                        cout << "success borrow" << endl;
                     }
                 } else if (type == 'R') {
                     if (!rentMovieFromInput(mediaType, category, id, input, false)) {
                         cout << "ERROR: CAN'T RETURN" << endl;
                     } else {
-                        cout << "success borrow" << endl;
+                        cout << "success return" << endl;
                     }
                 } else {
                     cout << "ERROR: INVALID COMMAND" << endl;
@@ -130,8 +130,12 @@ bool MovieStore::addMovie(char category, int stock, string director, string titl
                                 int month, int year) {
     if (category == 'C') {
         return addItem(factory.createClassicalMovie(director, title, actorFirst, actorLast, month, year), stock);
+    } else if (category == 'D') {
+        return addItem(factory.createDramaMovie(director, title, year), stock);
+    } else if (category == 'F') {
+        return addItem(factory.createComedyMovie(director, title, year), stock);
     } else {
-        return addItem(factory.createMovie(category, director, title, year), stock);
+        return false;
     }
 }
 
@@ -144,27 +148,33 @@ bool MovieStore::rentMovieFromInput(char medID, char catID, int custID, ifstream
         input >> year;
         input >> actorFirst;
         input >> actorLast;
-        ClassicalMovie* movie = (ClassicalMovie*) (factory.createClassicalMovie("", "", actorFirst, actorLast, month, year));
-        if (!rentItem((ClassicalMovie*) movie, custID, borrowing)) {
-            cout << "ERROR: MOVIE NO EXIST" << endl;
+        ClassicalMovie* movie = (factory.createClassicalMovie("", "", actorFirst, actorLast, month, year));
+        if (!rentItem(movie, custID, borrowing)) {
+            cout << "ERROR: Classical MOVIE NO EXIST" << endl;
+        } else {
+            cout << "classical success" << endl;
         }
     } else if (catID == 'F') {
         string title = "";
         int year = -1;
         getline(input, title, ',');
         input >> year;
-        ComedyMovie* movie = (ComedyMovie*) factory.createMovie(catID, "", title, year);
-        if (!rentItem((ComedyMovie*) movie, custID, borrowing)) {
-            cout << "ERROR: COMEDY MOVIE NO EXIST" << endl;
+        ComedyMovie* movie = factory.createComedyMovie("", title, year);
+        if (!rentItem(movie, custID, borrowing)) {
+            cout << "ERROR: Comedy MOVIE NO EXIST" << endl;
+        } else {
+            cout << "comedy success" << endl;
         }
     } else if (catID == 'D') {
         string director = "";
         string title = "";
         getline(input, director, ',');
         getline(input, title, ',');
-        DramaMovie* movie = (DramaMovie*) factory.createMovie(catID, director, title, -1);
-        if (!rentItem((DramaMovie*) movie, custID, borrowing)) {
-            cout << "ERROR: MOVIE NO EXIST" << endl;
+        DramaMovie* movie = factory.createDramaMovie(director, title, -1);
+        if (!rentItem(movie, custID, borrowing)) {
+            cout << "ERROR: Drama MOVIE NO EXIST" << endl;
+        } else {
+            cout << "drama success" << endl;
         }
     } else {
          cout << "ERROR: INVALID CATEGORY RENTAL" << endl;

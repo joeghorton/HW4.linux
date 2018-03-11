@@ -21,7 +21,11 @@ public:
     // destructor
     ~DramaMovie();
 
-    // comparison method specific to this type of movie
+    // comparison methods specific to this type of movie
+    bool operator ==(const Movie& other) const;
+    bool operator <(const Movie& other) const;
+    bool operator >(const Movie& other) const;
+
     bool operator ==(const DramaMovie& other) const;
     bool operator <(const DramaMovie& other) const;
     bool operator >(const DramaMovie& other) const;
@@ -51,7 +55,17 @@ bool DramaMovie::operator >(const DramaMovie& other) const {
     }
 }
 
+bool DramaMovie::operator ==(const Movie& other) const {
+    return *this == (DramaMovie&) other;
+}
 
+bool DramaMovie::operator <(const Movie& other) const {
+    return *this < (DramaMovie&) other;
+}
+
+bool DramaMovie::operator >(const Movie& other) const {
+    return *this > (DramaMovie&) other;
+}
 
 
 #endif //ASSIGNMENT4_DRAMAMOVIE_H

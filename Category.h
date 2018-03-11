@@ -3,7 +3,7 @@
 #define ASSIGNMENT4_CATEGORY_H
 #include "MediaType.h"
 #include "ShelfNode.h"
-#include "Movie.h"
+#include "Item.h"
 
 // The category class is used as the second part of a
 // 2 part organizer. This class is used to only store
@@ -92,11 +92,11 @@ void Category::insertItem(Item* item, int stock) {
 ShelfNode* Category::insertItem(Item* item, int stock, ShelfNode* root) {
     if (root == NULL) {
         root = new ShelfNode(item, stock);
-    } else if (*root->item < *item) {
+    } else if (*item < *root->item) {
         root->left = insertItem(item, stock, root->left);
-    } else if (*root->item > *item) {
+    } else if (*item > *root->item) {
         root->right = insertItem(item, stock, root->right);
-    } else { // items are equal
+    } else { // items are equal, increase the stock
         root->addStock(stock);
         //delete item;
     }
@@ -128,9 +128,9 @@ bool Category::returnItem(Item* item) {
 ShelfNode* Category::findShelf(Item* item, ShelfNode* root) {
     if (root == NULL) {
         return NULL;
-    } else if (*root->item == *item) {
+    } else if (*item == *root->item) {
         return root;
-    } else if (*root->item < *item) {
+    } else if (*item > *root->item) {
         return findShelf(item, root->left);
     } else { // item is greater than root
         return findShelf(item, root->right);
