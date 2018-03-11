@@ -21,6 +21,8 @@ public:
     // destructor
     ~DramaMovie();
 
+    void print();
+
     // comparison methods specific to this type of movie
     bool operator ==(const Movie& other) const;
     bool operator <(const Movie& other) const;
@@ -33,6 +35,10 @@ public:
 
 DramaMovie::~DramaMovie() {
 
+}
+
+void DramaMovie::print() {
+    cout << this->director << ", " << this->title;
 }
 
 bool DramaMovie::operator ==(const DramaMovie& other) const {

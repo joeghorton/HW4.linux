@@ -21,6 +21,7 @@ public:
     //destructor
     ~ComedyMovie();
 
+    void print();
     // comparison method specific to this class
    // bool operator ==(const Item& other) const;
 
@@ -38,6 +39,11 @@ public:
 
 
 };
+
+void ComedyMovie::print() {
+    cout << this->title << ", " << this->year;
+}
+
 
 bool ComedyMovie::operator ==(const ComedyMovie& other) const {
     // const_cast<Item&>(other);

@@ -34,6 +34,7 @@ public:
     void print();
 
     void printInventory();
+
     void printCustomers();
 
     bool addMediaType(char medID); //used to add media type so then data valid
@@ -48,7 +49,9 @@ public:
 
     bool addItem(Item* item, int stock);
 
-    bool rentItem(Item* item, int custID, bool borrowing);
+    bool rentalAction(Item* item, int custID, bool borrowing);
+
+    bool rentItem(Item* item, int custID);
 
     bool returnItem(Item* item, int custID);
 
@@ -114,9 +117,9 @@ bool RentalStore::isValidCategory(char medID, char catID) {
     }
 }
 
-bool RentalStore::addCustomer(int id, string firstName, string lastName) {
-    if (this->customerList[id] == NULL) {
-        this->customerList[id] = new Customer(id, firstName, lastName);
+bool RentalStore::addCustomer(int custID, string firstName, string lastName) {
+    if (this->customerList[custID] == NULL) {
+        this->customerList[custID] = new Customer(custID, firstName, lastName);
         return true;
     } else {
         return false;
@@ -143,8 +146,16 @@ bool RentalStore::addItem(Item* item, int stock) {
     return false;
 }
 
-bool RentalStore::rentItem(Item* item, int custID, bool borrowing) {
-    return rentalHelper(item, custID, borrowing);
+bool RentalStore::rentalAction(Item* item, int custID, bool borrowing) {
+    if (borrowing) {
+        return rentItem(item, custID);
+    } else {
+        return returnItem(item, custID);
+    }
+}
+
+bool RentalStore::rentItem(Item* item, int custID) {
+    return rentalHelper(item, custID, true);
 }
 
 bool RentalStore::returnItem(Item* item, int custID) {

@@ -131,9 +131,9 @@ ShelfNode* Category::findShelf(Item* item, ShelfNode* root) {
     } else if (*item == *root->item) {
         return root;
     } else if (*item > *root->item) {
-        return findShelf(item, root->left);
-    } else { // item is greater than root
         return findShelf(item, root->right);
+    } else { // item is less than than root
+        return findShelf(item, root->left);
     }
 }
 

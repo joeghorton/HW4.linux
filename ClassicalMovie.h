@@ -36,6 +36,8 @@ public:
     //destructor
     ~ClassicalMovie();
 
+    void print();
+
     // return month created
     int getMonth();
 
@@ -55,6 +57,10 @@ public:
 
 ClassicalMovie::~ClassicalMovie() {
 
+}
+
+void ClassicalMovie::print() {
+    cout << this->month << " " << this->year << ", " << this->actorFirst << " " << this->actorLast;
 }
 
 int ClassicalMovie::getMonth() {

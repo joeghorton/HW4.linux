@@ -64,13 +64,16 @@ string Customer::getLastName() {
 void Customer::displayHistory() {
     HistoryNode* cur = this->historyFront;
     while (cur != NULL) {
+        cout << " | ";
         cur->printItem();
         cur = cur->prevRental;
     }
 }
 
 void Customer::print() {
-    cout << this->id << " " << this->lastName << " " << this->firstName << endl;
+    cout << this->id << " " << this->lastName << ", " << this->firstName << " HISTORY";
+    displayHistory();
+    cout << endl;
 }
 
 void Customer::addToHistory(Item* item, bool borrowing) {

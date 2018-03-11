@@ -43,7 +43,7 @@ public:
     // returns year the movie was released
     int getReleaseYear();
 
-    void print();
+    virtual void print();
 
     // default compare to for movie;
     // compare title then release year for generic movie.

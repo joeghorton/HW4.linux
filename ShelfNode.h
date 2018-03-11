@@ -34,7 +34,7 @@ public:
     //may modify later to print if only error.
     bool borrowItem();
 
-    //returns true if successfully returned.
+    //returns true if successfully borrowed.
     //may modify later to print if only error
     void returnItem();
 

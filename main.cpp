@@ -1,10 +1,35 @@
 #include <iostream>
 #include <fstream>
 #include "MovieStore.h"
+
+int testSimple();
+
+int testAll();
+
 using namespace std;
 
 int main() {
-/*
+
+    return testAll();
+    //return testSimple();
+}
+
+
+
+int testSimple() {
+    MovieStore store2;
+    ClassicalMovie* cm = new ClassicalMovie("Porno 1", "Joe Horton", 2018, 3, "Will", "Smith");
+    store2.addItem(cm, 5);
+    store2.print();
+    store2.addCustomer(69, "Lori", "Horton");
+    store2.rentItem(cm, 69);
+    store2.print();
+    store2.returnItem(cm, 69);
+    store2.print();
+    return 0;
+}
+
+int testAll() {
     MovieStore store;
     // test file input
     ifstream infile1("data4movies.txt");
@@ -22,7 +47,7 @@ int main() {
         return 2;
     }
     store.readInCustomers(infile2);
-    store.print();
+    //store.print();
 
     ifstream infile3("data4commands.txt");
     if (!infile3) {
@@ -31,15 +56,6 @@ int main() {
     }
     cout << "--------------" << endl;
     store.readInCommands(infile3);
-   // store.print();
-*/
-    MovieStore store2;
-    ClassicalMovie* cm = new ClassicalMovie("Porno 1", "Joe Horton", 2018, 3, "Will", "Smith");
-    store2.addItem(cm, 5);
-    store2.print();
-    store2.addCustomer(1, "Lori", "Horton");
-    store2.rentItem(cm, 1, true);
-    store2.print();
-
+    // store.print();
     return 0;
 }
