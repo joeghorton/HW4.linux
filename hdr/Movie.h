@@ -5,6 +5,7 @@
 #ifndef ASSIGNMENT4_MOVIE_H
 #define ASSIGNMENT4_MOVIE_H
 #include <string>
+#include "Item.h"
 
 // The movie class is used to store a general movie description.
 // The class extends Item, because it is an item stored within the
@@ -55,50 +56,5 @@ public:
 
 
 };
-
-Movie::~Movie() = default;
-
-string Movie::getDirector() {
-    return this->director;
-}
-
-int Movie::getReleaseYear() {
-    return this->year;
-}
-
-void Movie::print() {
-    cout << this->title << " " << "(" << this->year << ")";
-}
-
-bool Movie::operator ==(const Movie& other) const {
-    return (this->year == const_cast<Movie&>(other).year &&
-            this->director == const_cast<Movie&>(other).director &&
-            this->title == const_cast<Movie&>(other).title);
-}
-
-bool Movie::operator <(const Movie& other) const {
-    return this->title < other.title || this->year < other.year;
-}
-
-bool Movie::operator >(const Movie& other) const {
-    return this->title > other.title || this->year > other.year;
-}
-
-bool Movie::operator ==(const Item& other) const {
-    return *this == (Movie&) const_cast<Item&>(other);
-
-}
-
-bool Movie::operator <(const Item& other) const {
-    return *this < (Movie&) const_cast<Item&>(other);
-
-}
-
-bool Movie::operator >(const Item& other) const {
-    return *this > (Movie&) const_cast<Item&>(other);
-
-}
-
-
 
 #endif //ASSIGNMENT4_MOVIE_H

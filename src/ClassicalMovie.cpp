@@ -1,70 +1,23 @@
 //
-// Created by emma on 3/1/18.
+// Created by Joe on 3/11/18.
 //
 
-#ifndef ASSIGNMENT4_CLASSICALMOVIE_H
-#define ASSIGNMENT4_CLASSICALMOVIE_H
-
-#include "Movie.h"
-#include <vector>
-using namespace std;
-
-class ClassicalMovie: public Movie {
-
-protected:
-    int month; //month released
-
-    // assumed that actor has first AND last name
-    // will use 2 indexes to store names.
-    // ex: Katherine Hepburn and Cary Grant both in movie.
-    //vector<string> actorNames;
-    string actorFirst;
-    string actorLast;
-
-public:
-
-    //constructor
-    ClassicalMovie(string title, string director, int year, int month, string actorFirst,
-                   string actorLast) : Movie(title, 'C', director, year) {
-        //this->actorNames.push_back(actorFirst);
-        //this->actorNames.push_back(actorLast);
-        this->actorFirst = actorFirst;
-        this->actorLast = actorLast;
-        this->month = month;
-    };
-
-    //destructor
-    ~ClassicalMovie();
-
-    void print();
-
-    // return month created
-    int getMonth();
-
-    // comparison methods
-    bool operator ==(const Movie& other) const;
-    bool operator <(const Movie& other) const;
-    bool operator >(const Movie& other) const;
-
-    bool operator ==(const ClassicalMovie& other) const;
-    bool operator <(const ClassicalMovie& other) const;
-    bool operator >(const ClassicalMovie& other) const;
-
-};
+#include "../hdr/ClassicalMovie.h"
 
 ClassicalMovie::~ClassicalMovie() = default;
 
+/*
 void ClassicalMovie::print() {
     cout << this->month << " " << this->year << ", " << this->actorFirst << " " << this->actorLast;
 }
-
+*/
 int ClassicalMovie::getMonth() {
     return this->month;
 }
 
 bool ClassicalMovie::operator ==(const ClassicalMovie& other) const {
     return (this->actorFirst == other.actorFirst && this->actorLast == other.actorLast &&
-                    this->year == other.year && this->month == other.month);
+            this->year == other.year && this->month == other.month);
 }
 
 bool ClassicalMovie::operator <(const ClassicalMovie& other) const {
@@ -110,5 +63,3 @@ bool ClassicalMovie::operator <(const Movie& other) const {
 bool ClassicalMovie::operator >(const Movie& other) const {
     return *this > (ClassicalMovie&) other;
 }
-
-#endif //ASSIGNMENT4_CLASSICALMOVIE_H

@@ -1,38 +1,8 @@
 //
-// Created by emma on 3/1/18.
+// Created by Joe on 3/11/18.
 //
 
-#ifndef ASSIGNMENT4_MOVIESTORE_H
-#define ASSIGNMENT4_MOVIESTORE_H
-
-#include "RentalStore.h"
-#include "MovieFactory.h"
-#include <fstream>
-
-using namespace std;
-
-
-class MovieStore : public RentalStore {
-
-public:
-
-    MovieFactory factory;
-
-    // constructors
-    MovieStore();
-
-    ~MovieStore();
-
-    bool addMovie(char category, int stock, string director, string title,
-                  string actorFirst, string actorLast, int month, int year);
-
-    bool rentMovieFromInput(char catID, int custID, ifstream& input, bool borrowing);
-
-    void readInInventory(ifstream& input); //read in inventory from file
-    void readInCustomers(ifstream& input); //read in customers from file
-    void readInCommands(ifstream& input); // read in commands from file
-    
-};
+#include "../hdr/MovieStore.h"
 
 MovieStore::MovieStore() {
     addMediaType('D');
@@ -108,33 +78,35 @@ void MovieStore::readInCommands(ifstream& input) {
                 input >> category;
                 if (command == 'B') {
                     if (!rentMovieFromInput(category, custID, input, true)) {
-                        cout << "borrow FAIL: " << category << " " << custID << endl;
+                        //cout << "borrow FAIL: " << category << " " << custID << endl;
                     } else {
-                        cout << "borrow SUCCESS" << endl;
+                        //cout << "borrow SUCCESS" << endl;
                     }
                 } else if (command == 'R') {
 
                     if (!rentMovieFromInput(category, custID, input, false)) {
-                        cout << "return FAIL: " << category << " " << custID << endl;
+                       // cout << "return FAIL: " << category << " " << custID << endl;
                     } else {
-                        cout << "return SUCCESS" << endl;
+                        //cout << "return SUCCESS" << endl;
                     }
 
                 }
             }
         } else {
-            cout << "INVALID COMMAND: " << command << endl;
-            string temp;
-            getline(input, temp);
+            if (command != ' ') {
+                cout << "INVALID COMMAND: " << command << endl;
+                string temp;
+                getline(input, temp);
+            }
         }
         count++;
-        cout << count << ": ";
+      //  cout << count << ": ";
     }
 }
 
 
 bool MovieStore::addMovie(char category, int stock, string director, string title, string actorFirst, string actorLast,
-                                int month, int year) {
+                          int month, int year) {
     if (category == 'C') {
         return addItem(factory.createClassicalMovie(director, title, actorFirst, actorLast, month, year), stock);
     } else if (category == 'D') {
@@ -168,7 +140,7 @@ bool MovieStore::rentMovieFromInput(char catID, int custID, ifstream& input, boo
         string title = "";
         getline(input, director, ',');
         getline(input, title, ',');
-        movie = factory.createDramaMovie(director, title, -1);
+        movie = factory.createDramaMovie(director, title);
     } else {
         cout << "ERROR: INVALID CATEGORY: " << catID << endl;
         return false;
@@ -177,5 +149,3 @@ bool MovieStore::rentMovieFromInput(char catID, int custID, ifstream& input, boo
     delete movie;
     return result;
 }
-
-#endif //ASSIGNMENT4_MOVIESTORE_H

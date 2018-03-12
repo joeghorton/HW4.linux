@@ -1,43 +1,16 @@
 //
-// Created by emma on 3/1/18.
+// Created by Joe on 3/11/18.
 //
 
-#ifndef ASSIGNMENT4_DRAMAMOVIE_H
-#define ASSIGNMENT4_DRAMAMOVIE_H
-
-#include "Movie.h"
-
-// This class is used for all Drama Movies.
-// It contains exactly the same information provided in the
-// Movie class, but it has its own comparison method.
-
-class DramaMovie : public Movie {
-
-public:
-
-    // constructor
-    DramaMovie(string title, string director, int year) : Movie(title, 'D', director, year) {};
-
-    // destructor
-    ~DramaMovie();
-
-    void print();
-
-    // comparison methods specific to this type of movie
-    bool operator ==(const Movie& other) const;
-    bool operator <(const Movie& other) const;
-    bool operator >(const Movie& other) const;
-
-    bool operator ==(const DramaMovie& other) const;
-    bool operator <(const DramaMovie& other) const;
-    bool operator >(const DramaMovie& other) const;
-};
+#include "../hdr/DramaMovie.h"
 
 DramaMovie::~DramaMovie() = default;
 
+/*
 void DramaMovie::print() {
     cout << this->director << ", " << this->title;
 }
+ */
 
 bool DramaMovie::operator ==(const DramaMovie& other) const {
     return (this->director == other.director && this->title == other.title);
@@ -70,6 +43,3 @@ bool DramaMovie::operator <(const Movie& other) const {
 bool DramaMovie::operator >(const Movie& other) const {
     return *this > (DramaMovie&) other;
 }
-
-
-#endif //ASSIGNMENT4_DRAMAMOVIE_H

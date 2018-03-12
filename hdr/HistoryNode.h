@@ -36,26 +36,5 @@ public:
 
 };
 
-HistoryNode::HistoryNode(Item* item, bool returned) {
-    this->item = item;
-    this->borrowed = returned;
-    this->prevRental = nullptr;
-}
-
-HistoryNode::~HistoryNode() = default;
-
-bool HistoryNode::wasReturned() {
-    return this->borrowed;
-}
-
-void HistoryNode::printItem() const {
-    if (this->borrowed) {
-        cout << "Borrowed: ";
-    } else {
-        cout << "Returned: ";
-    }
-    this->item->print();
-
-}
 
 #endif //ASSIGNMENT4_RENTALNODE_H

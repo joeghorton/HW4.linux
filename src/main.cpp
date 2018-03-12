@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "MovieStore.h"
+#include "../hdr/MovieStore.h"
 
 int testSimple();
 
