@@ -4,7 +4,6 @@
 
 #ifndef ASSIGNMENT4_MOVIE_H
 #define ASSIGNMENT4_MOVIE_H
-//#include "Item.h"
 #include <string>
 
 // The movie class is used to store a general movie description.

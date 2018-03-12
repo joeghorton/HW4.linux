@@ -157,14 +157,12 @@ bool MovieStore::rentMovieFromInput(char catID, int custID, ifstream& input, boo
         input >> actorFirst;
         input >> actorLast;
         movie = factory.createClassicalMovie("", "", actorFirst, actorLast, month, year);
-
     } else if (catID == 'F') {
         string title = "";
         int year = -1;
         getline(input, title, ',');
         input >> year;
         movie = factory.createComedyMovie("", title, year);
-
     } else if (catID == 'D') {
         string director = "";
         string title = "";

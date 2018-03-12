@@ -23,7 +23,7 @@ public:
     ComedyMovie* createComedyMovie(string director, string title, int year);
 
     ClassicalMovie* createClassicalMovie(string director, string title, string actorFirst,
-                                        string actorLast, int month, int year);
+                                                string actorLast, int month, int year);
 
 
 };

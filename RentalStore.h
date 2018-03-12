@@ -43,7 +43,7 @@ public:
 
     bool isValidCategory(char medID, char catID);
 
-    bool addCustomer(int id, string firstName, string lastName); // used to add customer to database.
+    bool addCustomer(int custID, string firstName, string lastName); // used to add customer to database.
 
     Customer* getCustomer(int custID);
 
@@ -59,17 +59,17 @@ public:
 
 RentalStore::RentalStore() {
     this->mediaTypes = new vector<MediaType*>();
-    for (int i = 0; i < MAX_CUST; i++) {
-        customerList[i] = nullptr;
+    for (auto& i : customerList) {
+        i = nullptr;
     }
 }
 
 RentalStore::~RentalStore() {
-    for (int i = 0; i < MAX_CUST; i++) {
-        delete customerList[i];
+    for (auto& i : customerList) {
+        delete i;
     }
-    for (int i = 0; i < this->mediaTypes->size(); i++) {
-        delete this->mediaTypes->at(i);
+    for (auto& mediaType : *this->mediaTypes) {
+        delete mediaType;
     }
     delete this->mediaTypes;
 }
@@ -82,15 +82,15 @@ void RentalStore::print() {
 }
 
 void RentalStore::printInventory() {
-    for (int i = 0; i < this->mediaTypes->size(); i++) {
-        this->mediaTypes->at(i)->print();
+    for (auto& mediaType : *this->mediaTypes) {
+        mediaType->print();
     }
 }
 
 void RentalStore::printCustomers() {
-    for (int i = 0; i < MAX_CUST; i++) {
-        if (this->customerList[i] != nullptr) {
-            this->customerList[i]->print();
+    for (auto& i : this->customerList) {
+        if (i != nullptr) {
+            i->print();
         }
     }
 }
@@ -183,9 +183,9 @@ bool RentalStore::rentalHelper(Item* item, int custID, bool borrowing) {
 }
 
 MediaType* RentalStore::getMediaType(char medID) {
-    for (int i = 0; i < this->mediaTypes->size(); i++) {
-        if (this->mediaTypes->at(i)->getIdentifier() == medID) {
-            return this->mediaTypes->at(i);
+    for (auto& mediaType : *this->mediaTypes) {
+        if (mediaType->getIdentifier() == medID) {
+            return mediaType;
         }
     }
     return nullptr;

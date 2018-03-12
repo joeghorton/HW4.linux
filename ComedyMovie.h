@@ -19,7 +19,7 @@ public:
     ComedyMovie(string title, string director, int year) : Movie(title, 'F', director, year) {};
 
     //destructor
-   // ~ComedyMovie();
+    //~ComedyMovie();
 
     void print();
 
@@ -47,7 +47,6 @@ void ComedyMovie::print() {
 
 
 bool ComedyMovie::operator ==(const ComedyMovie& other) const {
-    // const_cast<Item&>(other);
     return (this->title == other.title && this->year == other.year);
 }
 

@@ -26,7 +26,7 @@ public:
 
     //empty constructor
 
-    MediaType(char mediaID);
+    explicit MediaType(char mediaID);
 
     // destructor for memory delete
     ~MediaType();
@@ -56,15 +56,15 @@ MediaType::MediaType(char mediaID) {
 }
 
 MediaType::~MediaType() {
-    for (int i = 0; i < this->categories->size(); i++) {
-        delete this->categories->at(i);
+    for (Category* cat : *this->categories) {
+        delete cat;
     }
     delete this->categories;
 }
 
 void MediaType::print() {
-    for (int i = 0; i < this->categories->size(); i++) {
-        this->categories->at(i)->print();
+    for (auto& cat : *this->categories) {
+        cat->print();
     }
 }
 
@@ -111,9 +111,9 @@ bool MediaType::returnItem(Item*& item) {
 }
 
 Category* MediaType::getCategory(char catID) {
-    for (int i = 0; i < this->categories->size(); i++) {
-        if (this->categories->at(i)->getIdentifier() == catID) {
-            return this->categories->at(i);
+    for (auto& cat : *this->categories) {
+        if (cat->getIdentifier() == catID) {
+            return cat;
         }
     }
     return nullptr;
