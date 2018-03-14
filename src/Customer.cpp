@@ -35,7 +35,7 @@ string Customer::getLastName() {
 void Customer::displayHistory() {
     HistoryNode* cur = this->historyFront;
     if (cur == nullptr) {
-        cout << " (no rental history)";
+        cout << endl << "   (no rental history)";
     }
     while (cur != nullptr) {
         cout << endl;

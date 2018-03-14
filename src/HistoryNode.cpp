@@ -18,9 +18,9 @@ bool HistoryNode::wasReturned() {
 
 void HistoryNode::printItem() const {
     if (this->borrowed) {
-        cout << "(borrowed)";
+        cout << "   (borrowed)";
     } else {
-        cout << "(returned)";
+        cout << "   (returned)";
     }
     this->item->print();
 }

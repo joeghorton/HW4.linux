@@ -100,7 +100,7 @@ void MovieStore::readInCommands(ifstream& input) {
             }
         }
         count++;
-      //  cout << count << ": ";
+        cout << count << ":";
     }
 }
 

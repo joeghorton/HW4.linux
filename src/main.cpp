@@ -54,7 +54,6 @@ int testAll() {
         cout << "File could not be opened." << endl;
         return 3;
     }
-    cout << "--------------" << endl;
     store.readInCommands(infile3);
     // store.print();
     return 0;
